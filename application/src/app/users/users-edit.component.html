@@ -1,0 +1,55 @@
+<app-header></app-header>
+<main>
+    <section class="title pad-section">
+        <div class="row login">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h4 class="center-align">Editar Usuário</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                            <form class="col s12 offset-s0 m8 offset-m2" #form_user_update="ngForm" (submit)='save(user.id)'>
+
+                                <div class="row">
+                                    <div class="input-field">
+                                            <input type="text" name="name" class='validate' placeholder="name" [(ngModel)]="user.name" #name="ngModel" required>
+                                            <dl class="form_validation" *ngIf="name.errors && (name.dirty || name.touched)">
+                                                <dt *ngIf="name.errors.required">O campo nome é obrigatório</dt>
+                                            </dl>
+                                            <label class="active" for="name">Nome</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="input-field">
+                                            <input type="email" name="email" class='validate'  placeholder="e-mail" [(ngModel)]="user.email" #email="ngModel" email required>
+                                            <dl class="form_validation" *ngIf="email.errors && (email.dirty || email.touched)">
+                                                <dt *ngIf="email.errors.required">O campo e-mail é obrigatório</dt>
+                                                <dt *ngIf="email.errors.email && !email.errors.required ">O campo e-mail é inválido</dt>                                                
+                                            </dl>
+                                            
+                                            <label class="active" for="email">E-mail</label>
+                                        </div>
+                                </div>                                
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l6">                                    
+                                        <button type='submit' name='btn_salvar' class='btn_salvar btn waves-effect indigo'>Salvar</button>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <a [routerLink]="['/users']" class='btn_voltar btn waves-effect pink'>Voltar</a>
+                                    </div>                                    
+                                </div>
+
+                            </form>
+                    </div>
+                    <div class="col s12">
+                            <app-toast></app-toast>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,25 @@
+<header (window:resize)="onResize($event)">
+    <nav>
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Item</a></li>
+                <li><a href="/">Item</a></li>
+                <li><a href="/">Item</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <span (click)='open()' href="#" id="menu_lateral-492" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
+            <i class="material-icons">menu</i>
+        </span>
+    </div>
+
+    <ul id="slide-out" class="side-nav fixed">
+        <li><a class="waves-effect" href="users">Usuários</a></li>
+        <li><a class="waves-effect" href="rooms">Salas</a></li>
+        <li><a class="waves-effect" href="reservations">Reservas</a></li>
+        <li id="btn-close" class="hide-on-large-only"><a class="waves-effect" href="#" (click)='close()'>close</a></li>
+    </ul>
+
+</header>

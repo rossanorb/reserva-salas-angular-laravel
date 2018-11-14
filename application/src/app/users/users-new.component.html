@@ -1,0 +1,80 @@
+<app-header></app-header>
+<main>
+    <section class="title pad-section">
+        <div class="row login">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h4 class="center-align">Novo Usuário</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                            <form class="col s12 offset-s0 m8 offset-m2" #form_user_new="ngForm" (submit)='save(user.id)'>
+                                <div class="row">
+                                    <div class="input-field">
+                                        <input type="text" name="name" class='validate' [(ngModel)]="user.name" #name="ngModel" required>
+                                        <dl class="form_validation" *ngIf="name.errors && (name.dirty || name.touched)">
+                                            <dt *ngIf="name.errors.required">O campo nome é obrigatório</dt>
+                                        </dl>
+                                        <label class="" for="name">Nome</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field">
+                                        <input type="email" name="email" class='validate' [(ngModel)]="user.email" #email="ngModel" email required>
+                                        <dl class="form_validation" *ngIf="email.errors && (email.dirty || email.touched)">
+                                            <dt *ngIf="email.errors.required">O campo e-mail é obrigatório</dt>
+                                            <dt *ngIf="email.errors.email && !email.errors.required ">O campo e-mail é inválido</dt>                                            
+                                        </dl>
+
+                                        <dl class="form_validation" *ngIf="confirm_password.touched">
+                                            <dt *ngIf="this.form_erro_email">{{form_erro_email_message}}</dt>
+                                        </dl>
+                                        
+                                        <label class="" for="email">E-mail</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field">
+                                        <input type="password" name="password" (focusout)="confirm()" class='validate' [(ngModel)]="user.password" #password="ngModel" maxlength="20" minlength="6" required>
+                                        <dl class="form_validation" *ngIf="password.errors && (password.dirty || password.touched)">
+                                          <dt *ngIf="password.errors.required">O campo senha é obrigatório</dt>
+                                          <dt *ngIf="password.errors.minlength">A senha deve ter ao menos 6 caracteres </dt>
+                                        </dl>
+                                        <label class="" for="password">Senha</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field">
+                                        <input type="password" (focusout)="confirm()" name="confirm_password" [(ngModel)]="user.confirm_password" #confirm_password="ngModel" class='validate'>
+                                        <dl class="form_validation" *ngIf="confirm_password.touched">
+                                          <dt *ngIf="this.form_erro_password">Os campos senhas devem coincidirem</dt>
+                                        </dl>
+                                        <label class="" for="confirm_password">Confirmar Senha</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l6">                                    
+                                        <button type='submit' name='btn_salvar' class='btn_salvar btn waves-effect indigo'
+                                         [disabled]="!form_user_new.valid || this.form_erro_password " >Salvar</button>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <a  [routerLink]="['/users']" class='btn_voltar btn waves-effect pink'>Voltar</a>
+                                    </div>                                    
+                                </div>
+
+                            </form>
+                    </div>
+                    <div class="col s12">
+                        <app-toast></app-toast>                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

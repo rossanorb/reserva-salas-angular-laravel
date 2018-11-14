@@ -1,0 +1,44 @@
+<main>
+  <div class="container center-align">
+      <div class="grey lighten-4 row login">
+
+        <form class="col s12" (submit)='login()' #form_login="ngForm">
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='email' name='email' id='email' [(ngModel)]="user.username" #username="ngModel" email required/>
+                <dl class="form_validation" *ngIf="username.errors && (username.dirty || username.touched)">
+                  <dt *ngIf="username.errors.required">O campo e-mail é obrigatório</dt>
+                  <dt *ngIf="username.errors.email && !username.errors.required ">O campo e-mail é inválido</dt>
+                </dl>
+                <label for='email'>Entre seu email</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='password' name='password'id='password' [(ngModel)]="user.password" #password="ngModel" maxlength="20" minlength="6" required/>
+                <dl class="form_validation" *ngIf="password.errors && (password.dirty || password.touched)">
+                  <dt *ngIf="password.errors.required">O campo senha é obrigatório</dt>
+                  <dt *ngIf="password.errors.minlength">A senha deve ter ao menos 6 caracteres </dt>
+                </dl>
+                <label for='password'>Entre sua senha</label>
+              </div>
+              <label style='float: right;'><a class='pink-text' href='#!'><b>Esqueceu a senha?</b></a></label>
+            </div>
+
+            <div class='row'>
+              <button type='submit' name='btn_login' class='btn btn-large waves-effect indigo' [disabled]="!form_login.valid" >Login</button>
+            </div>
+
+            <div class='row'>
+              <div class='col s12'>
+                <a href="#!">Crie uma conta</a>
+              </div>
+            </div>
+
+          </form>
+
+      </div>
+  </div>
+</main>

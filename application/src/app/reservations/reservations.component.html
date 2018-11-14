@@ -1,0 +1,176 @@
+<app-header></app-header>
+<main>
+    <section class="title pad-section">
+        <div class="row login">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h4 class="center-align">Agendamento de Salas</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                            <form class="col s12 offset-s0 m8 offset-m2" #form="ngForm" (ngSubmit)='reservar()'>
+                                <div class="row">                                    
+                                    <div class="input-field col s6">                                        
+                                        <select 
+                                            [(ngModel)]="selectedRoom"
+                                            name="selectedRoom"
+                                            materialize="material_select" 
+                                            [materializeSelectOptions]="rooms.data" 
+                                            [disabled]="isDisabled?true:null"
+                                            id="select_room"
+                                        >
+                                               <option value="" disabled selected>selecione...</option>
+                                               <option *ngFor="let room of rooms.data" [value]="room.id">{{room.name}}</option>
+                                        </select>
+                                        <label>Sala</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input type="text" class="datepicker" (ngModelChange)="changeDate($event)" materialize="pickadate"  id="date_in" [materializeParams]="materializeParams" name="date_in" [(ngModel)]="reservation.date_in" #date_in="ngModel"  required>
+                                        <label class="" for="date_in">Data Entrada</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input type="text" class="timepicker" id="time_in" materialize="pickatime" [materializeParams]="materializeTimeParams" name="time_in" [(ngModel)]="reservation.time_in" #time_in="ngModel" required>
+                                        <label class="" for="time_in">Hora Entrada</label>                                        
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input type="text" class="datepicker"  materialize="pickadate" id="date_out" [materializeParams]="materializeParams" [(ngModel)]="reservation.date_out" #date_out="ngModel" name="date_out" required>
+                                        <label class="" for="date_out">Data Saída</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                      <input type="text" class="timepicker" id="time_out" materialize="pickatime"  [materializeParams]="materializeTimeParams" [(ngModel)]="reservation.time_out" #time_out="ngModel" name="time_out" class="" type="text" required>
+                                      <label class="" for="time_out">Hora Saída</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l6">                                    
+                                        <button type='submit' name='btn_salvar' [disabled]="!form.valid" class='btn_salvar btn waves-effect indigo'>Reservar</button>
+                                    </div>
+                                        <div class="input-field col s12 m6 l6">
+                                        <a  href="javascript:window.history.back();" class='btn_voltar btn waves-effect pink'>Voltar</a>
+                                    </div>
+                                </div>                                 
+                                
+                                <div class="row">
+                                  <div class="col s12" class="timetable">
+
+                                    <div id="hr-1" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-1" class="col s12" >01:00</div>
+                                        <div id="hr-bar-1" class="col s12" style="padding: 0%"></div>
+                                    </div>
+
+                                    <div id="hr-13" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-13" class="col s12" >13:00</div>
+                                        <div id="hr-bar-13" class="col s12"></div>
+                                    </div>
+
+                                    <div id="hr-2" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-2" class="col s12" >02:00</div>
+                                        <div id="hr-bar-2" class="col s12"></div>
+                                    </div>                     
+
+                                    <div id="hr-14" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-14" class="col s12" >14:00</div>
+                                            <div id="hr-bar-14" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-3" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-3" class="col s12" >03:00</div>
+                                            <div id="hr-bar-3" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-15" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-15" class="col s12" >15:00</div>
+                                            <div id="hr-bar-15" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-4" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-4" class="col s12" >04:00</div>
+                                            <div id="hr-bar-4" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-16" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-16" class="col s12" >16:00</div>
+                                            <div id="hr-bar-16" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-5" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-5" class="col s12" >05:00</div>
+                                            <div id="hr-bar-5" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-17" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-17" class="col s12" >17:00</div>
+                                            <div id="hr-bar-17" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-6" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-6" class="col s12" >06:00</div>
+                                            <div id="hr-bar-6" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-18" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-18" class="col s12" >18:00</div>
+                                            <div id="hr-bar-18" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-7" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-7" class="col s12" >7:00</div>
+                                            <div id="hr-bar-7" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-19" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-19" class="col s12" >19:00</div>
+                                            <div id="hr-bar-19" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-8" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-8" class="col s12" >08:00</div>
+                                            <div id="hr-bar-8" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-20" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-20" class="col s12" >20:00</div>
+                                            <div id="hr-bar-20" class="col s12"></div>
+                                    </div>
+                                    <div id="hr-9" class="col s12 m6 l6 hour">
+                                            <div id="hr-viewer-9" class="col s12" >09:00</div>
+                                            <div id="hr-bar-9" class="col s12"></div>
+                                    </div>  
+                                    <div id="hr-21" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-21" class="col s12" >21:00</div>
+                                        <div id="hr-bar-21" class="col s12"></div>
+                                    </div>   
+                                    <div id="hr-10" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-10" class="col s12" >10:00</div>
+                                        <div id="hr-bar-10" class="col s12"></div>
+                                    </div>   
+                                    <div id="hr-22" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-22" class="col s12" >22:00</div>
+                                        <div id="hr-bar-22" class="col s12"></div>
+                                    </div>   
+                                    <div id="hr-11" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-11" class="col s12" >11:00</div>
+                                        <div id="hr-bar-11" class="col s12"></div>
+                                    </div>   
+                                    <div id="hr-23" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-23" class="col s12" >23:00</div>
+                                        <div id="hr-bar-23" class="col s12"></div>
+                                    </div>
+
+                                    <div id="hr-12" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-12" class="col s12" >12:00</div>
+                                        <div id="hr-bar-12" class="col s12"></div>
+                                    </div>   
+                                    <div id="hr-24" class="col s12 m6 l6 hour">
+                                        <div id="hr-viewer-24" class="col s12" >00:00</div>
+                                        <div id="hr-bar-24" class="col s12"></div>
+                                    </div>                                    
+                                    
+                                  </div>
+                                </div>
+
+
+
+                            </form>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

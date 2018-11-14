@@ -1,0 +1,25 @@
+
+
+span.button-collapse.top-nav {
+    cursor: pointer;
+    position: absolute;
+    text-align: center;
+    height: 48px;
+    width: 48px;
+    left: 7.5%;
+    top: 5px;
+    float: none;
+    margin-left: -8px;
+    color: #fff;
+    font-size: 36px;
+    z-index: 2;
+}
+
+header nav{
+    /*background-color: #62bfe6;*/
+    padding-left: 10%;
+}
+
+#btn-close{
+  
+}

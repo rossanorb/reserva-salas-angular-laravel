@@ -1,0 +1,3 @@
+.pagination li:not(.active) {
+    cursor: pointer;
+}

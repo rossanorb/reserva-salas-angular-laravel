@@ -1,0 +1,7 @@
+<ul class="pagination">
+  <li class="active" [ngClass]="{'active': page == activePage}" *ngFor="let page of pages">
+    <a (click)="changePage(page)" >{{page}}</a>
+  </li>
+</ul>
+
+<p>total de {{total}} registros, exibindo página {{activePage}} de {{totalPage}}</p>
