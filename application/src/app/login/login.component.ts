@@ -35,7 +35,7 @@ export class LoginComponent {
           .then((res) => {
               localStorage['tokens'] = JSON.stringify(res);
               this.httpService.setAccessToken(res.access_token);
-              this.router.navigate(['/']);
+              this.router.navigate(['/reservations']);
           });
   }
 }

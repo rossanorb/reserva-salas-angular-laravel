@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 const breakpoint = 992;
 
@@ -10,7 +11,7 @@ const breakpoint = 992;
 export class HeaderComponent  {
   // private breakpoint: number = 992;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   public open() {
     document.getElementById('slide-out')
@@ -28,6 +29,12 @@ export class HeaderComponent  {
     if (w > breakpoint) {
       this.close();
     }
+  }
+
+  public logout(event) {
+    event.preventDefault();
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 }

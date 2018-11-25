@@ -13,7 +13,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { AuthenticationHttpService } from './login/authentication-http.service';
 
 const appRoutes: Routes = [
-    {path: '', redirectTo: '/', pathMatch: 'full'},
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
 ];
 
 @NgModule({
