@@ -25,12 +25,9 @@ export class RoomsComponent implements OnInit {
   }
 
   list() {
-    this.httpService
-      .resource('room')
+    this.httpService.resource('room')
       .list()
-      .then((res) => {
-        this.rooms = res;
-      });
+      .subscribe( res => this.rooms = res);
   }
 
   pageChanged(data: Object) {

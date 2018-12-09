@@ -3,6 +3,10 @@ import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import { Observable } from 'rxjs/Observable';
+import { Room } from './../Interfaces/Room';
+import { map } from 'rxjs/operators';
+
 interface Options {
   limit?: number;
   page?: number;
@@ -17,6 +21,8 @@ export class RoomService {
   private options: RequestOptions = {};
   private url: string;
 
+  public rooms: Room[];
+
   constructor(private http: Http) { }
 
   resource(url: string) {
@@ -24,28 +30,23 @@ export class RoomService {
     return this;
   }
 
-  list(options: Options = {}) {
-    let url = this.url;
+  list(options: Options = {}): Observable<Room>  {
+      let url = this.url;
 
-    if (options.limit === undefined) {
-      options.limit = 10;
-    }
+      if (options.limit === undefined) {
+        options.limit = 10;
+      }
 
-    if (options.page === undefined) {
-      options.page = 1;
-    }
+      if (options.page === undefined) {
+        options.page = 1;
+      }
 
-    url += '?limit=' + options.limit;
-    url += '&page=' + options.page;
+      url += '?limit=' + options.limit;
+      url += '&page=' + options.page;
 
-    return this.http.get(url, this.options)
-      .toPromise()
-      .then((res) => {
-        return res.json() || {};
-      })
-      .catch( (error: any) => {
-        return {};
-      });
+      return this.http.get(url, this.options)
+        .pipe(map(res => res.json()))
+        .catch(err => Observable.throw(err.message));
   }
 
   public save(data: Object) {

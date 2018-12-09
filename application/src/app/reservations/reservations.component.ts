@@ -62,8 +62,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
   }
 
   ngOnInit(): void {
-    this.getRooms();
-
+    this.list();
   }
 
   ngAfterViewInit() {
@@ -115,11 +114,11 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     }
   }
 
-  private getRooms() {
+  private list() {
     this.httpRoomService
       .resource('room')
       .list()
-      .then((res) => {
+      .subscribe((res) => {
         this.rooms = res;
       });
   }
