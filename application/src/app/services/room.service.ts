@@ -55,20 +55,15 @@ export class RoomService {
     .catch(error => Observable.throw(error));
   }
 
-  update (id: number, data: Object) {
+  public update(id: number, data: object): Observable<any> {
     return this.http.put(this.url + '/' + id, data, this.options)
-        .toPromise()
-        .then((res) => {
-            return res.json() || {};
-        });
+    .catch(error => Observable.throw(error));
   }
 
-  public show(id: number) {
+  public show(id: number): Observable<any> {
     return this.http.get(this.url + '/' + id, this.options)
-      .toPromise()
-      .then((res) => {
-        return res.json() || {};
-      });
+    .pipe(map(res => res.json()))
+    .catch(error => Observable.throw(error));
   }
 
   public delete(id: number) {

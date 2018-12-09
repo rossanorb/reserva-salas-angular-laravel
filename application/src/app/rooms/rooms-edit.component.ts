@@ -30,34 +30,35 @@ export class RoomsEditComponent implements OnInit {
     private edit(id: number) {
         this.httpService.resource('room')
         .show(id)
-        .then( (result) => {
+        .subscribe( (result) => {
             this.room = result;
         });
     }
 
     save(id: number) {
-        console.log('save');
         this.httpService.resource('room')
-        .update(id, this.room)
-        .then(
-            (res) => {
-                this.toastService.message({
-                    status: 'success',
-                    message: 'Sucesso: dados alterados'
-                 });
-                this.router.navigate(['/room/edit/' + id]);
-            }
-        )
-        .catch(
-            (error: any) => {
-                const mensagem = JSON.parse( error._body );
-                console.log(mensagem.message);
-                this.toastService.message({
-                    status: 'error',
-                    message: 'Erro: não foi possível atualizar os dados'
-                });
-            }
-        );
-    }
+            .update(id, this.room)
+            .subscribe(
+                (res: any) => {
+                    this.toastService.message({
+                        status: 'success',
+                        message: 'Sucesso: dados alterados'
+                     });
+                    this.router.navigate(['/rooms/edit/' + id]);
+                },
+                (error: any) => {
+                    const result = JSON.parse( error._body );
+                    let mensagem = 'Detalhes:<br />';
 
+                    result.description.forEach(element => {
+                      mensagem += element + '<br />';
+                    });
+
+                    this.toastService.message({
+                        status: 'error',
+                        message: 'Erro: não foi possível atualizar os dados' + mensagem
+                    });
+                }
+            );
+    }
 }
