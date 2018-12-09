@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RoomService } from '../services/room.service';
-import { Room } from '../models/room';
+import { Room } from '../Interfaces/room';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -12,7 +12,10 @@ import { ToastService } from '../services/toast.service';
 
 export class RoomsEditComponent implements OnInit {
 
-    public room: Object = {Room};
+    room: Room = {
+        name: '',
+        number: null
+      };
 
     constructor(
         private route: ActivatedRoute,

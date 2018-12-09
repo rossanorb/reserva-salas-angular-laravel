@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { RoomService } from '../services/room.service';
+import { Room } from '../Interfaces/room';
 
 @Component({
   selector: 'app-rooms',
@@ -10,8 +11,9 @@ import { RoomService } from '../services/room.service';
 })
 export class RoomsComponent implements OnInit {
 
-  public rooms: Object = {
-    data: []
+  public rooms: Room = {
+    name: '',
+    number: null
   };
 
   constructor(
@@ -31,7 +33,7 @@ export class RoomsComponent implements OnInit {
   }
 
   pageChanged(data: Object) {
-    this.rooms = data;
+    this.rooms = <Room>data;
   }
 
   delete(id: number) {

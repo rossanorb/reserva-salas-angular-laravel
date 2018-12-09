@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-
 import { Observable } from 'rxjs/Observable';
-import { Room } from './../Interfaces/Room';
 import { map } from 'rxjs/operators';
 
-interface Options {
-  limit?: number;
-  page?: number;
-}
-
-interface RequestOptions {
-  headers?: any;
-}
+import { Room } from './../Interfaces/room';
+import { Options } from './../Interfaces/options';
+import { RequestOptions } from './../Interfaces/request.options';
 
 @Injectable()
 export class RoomService {
