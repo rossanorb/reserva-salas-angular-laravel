@@ -49,13 +49,10 @@ export class RoomService {
         .catch(err => Observable.throw(err.message));
   }
 
-  public save(data: Object) {
+  public save(data: object): Observable<any>  {
     return this.http.post(this.url, data, this.options)
-      .toPromise()
-      .then((res) => {
-        return res.json() || {};
-      })
-      .catch(this.handleError);
+    .pipe(map(res => res.json()))
+    .catch(error => Observable.throw(error));
   }
 
   update (id: number, data: Object) {
@@ -64,10 +61,6 @@ export class RoomService {
         .then((res) => {
             return res.json() || {};
         });
-  }
-
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
   }
 
   public show(id: number) {

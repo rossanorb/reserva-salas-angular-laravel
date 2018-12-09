@@ -36,23 +36,23 @@ export class RoomsNewComponent {
   public save() {
     this.httpService.resource('room')
       .save(this.room)
-      .then((data) => {
-        this.router.navigate(['/rooms']);
-      })
-      .catch((error: any) => {
-        const result = JSON.parse(error._body);
-        let mensagem = 'Detalhes:<br />';
+      .subscribe(
+          (data: any) => {
+          this.router.navigate(['/rooms']);
+          },
+          (error: any) => {
+            const result = JSON.parse(error._body);
+            let mensagem = 'Detalhes:<br />';
 
-        result.description.forEach(element => {
-          mensagem += element + '<br />';
-        });
+            result.description.forEach(element => {
+              mensagem += element + '<br />';
+            });
 
-        this.toastService.message({
-          status: 'error',
-          message: 'Erro: não foi possível criar nova sala<br />' + mensagem
-        });
-
-      });
+            this.toastService.message({
+              status: 'error',
+              message: 'Erro: não foi possível criar nova sala<br />' + mensagem
+            });
+          }
+      );
   }
-
 }
