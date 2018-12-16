@@ -111,5 +111,18 @@ class ReservationController extends Controller
         
     }
 
+    public function destroy($id)
+    {
+        $has_permission = $this->model->where([
+            ['users_id', '=', Auth::user()->id],
+            ['id', '=', $id]
+        ])->exists();        
 
+        if ($has_permission) {
+            return parent::destroy($id);
+        } else {
+            $this->setError($this->getErro(22));
+            return $this->response(false, 403);
+        }
+    }
 }

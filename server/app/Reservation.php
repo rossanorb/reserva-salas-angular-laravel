@@ -11,4 +11,9 @@ class Reservation extends Model
     public function room(){
         return $this->belongsTo(Room::class, 'rooms_id'); 
     }
+
+
+    public function reservation($id){
+        return $this->where('rooms_id','=', $id);
+    }
 }
