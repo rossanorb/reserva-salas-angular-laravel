@@ -14,47 +14,50 @@ class ReservationController extends Controller
     protected $relationships = ['room'];
     protected $validator;
 
-    public function __construct(Reservation $model, ReservationValidator $validator ){
+    public function __construct(Reservation $model, ReservationValidator $validator)
+    {
         $this->model = $model;
         parent::setValidator($validator);
     }
 
-    private function getReservations($date){
+    private function getReservations($date)
+    {
         $date = \DateTime::createFromFormat('d-m-Y', $date)->format('Y-m-d');
-        $fromDate =  $date.' 00:00:00'; // $fromDate =  $date.date('Y-m-d' . ' 00:00:00', time());
-        $toDate = $date.' 24:00:00'; // $toDate   =  $date.date('Y-m-d' . ' 24:00:00', time());
+        $fromDate = $date . ' 00:00:00'; // $fromDate =  $date.date('Y-m-d' . ' 00:00:00', time());
+        $toDate = $date . ' 24:00:00'; // $toDate   =  $date.date('Y-m-d' . ' 24:00:00', time());
 
-        return Reservation::
-            whereBetween('date_in',[$fromDate, $toDate])
-            ->orWhere(function($query) use ($fromDate, $toDate) {
-                $query->whereBetween('date_out',[$fromDate, $toDate]);
+        return Reservation::whereBetween('date_in', [$fromDate, $toDate])
+            ->orWhere(function ($query) use ($fromDate, $toDate) {
+                $query->whereBetween('date_out', [$fromDate, $toDate]);
             })
             ->with($this->relationships())
             ->get();
     }
 
-    public function mades($date){
+    public function mades($date)
+    {
         $reservations = $this->getReservations($date);
         return response()->json($reservations);
     }
 
-    public function make(Request $request){
+    public function make(Request $request)
+    {
         $inputs = $request->all();
-        
-        if(!$this->validator->room($inputs)){
-            return $this->response(false, 422);
-        }
-        
-        if(!$this->validator->dates($inputs)){
-            return $this->response(false, 422);
-        }
-        
 
-        if(strlen( $inputs['date_in'] ) === 19){
-            $fromDate = substr( $inputs['date_in'] ,0 ,18) . '1';
+        if (!$this->validator->room($inputs)) {
+            return $this->response(false, 422);
         }
-        if(strlen( $inputs['date_out'] ) === 19){
-            $toDate = substr( $inputs['date_out'] ,0 ,18) . '1';
+
+        if (!$this->validator->dates($inputs)) {
+            return $this->response(false, 422);
+        }
+
+
+        if (strlen($inputs['date_in']) === 19) {
+            $fromDate = substr($inputs['date_in'], 0, 18) . '1';
+        }
+        if (strlen($inputs['date_out']) === 19) {
+            $toDate = substr($inputs['date_out'], 0, 18) . '1';
         }
 
         \Log::debug($fromDate);
@@ -88,7 +91,7 @@ class ReservationController extends Controller
         $reservations = \DB::select($sql);
 
 
-        if( count($reservations) == 0 ){
+        if (count($reservations) == 0) {
 
             $reservation = Reservation::create([
                 'users_id' => Auth::user()->id,
@@ -99,16 +102,16 @@ class ReservationController extends Controller
 
             $this->message = $reservation;
             return $this->response(true, 201);
-       
+
 
             return response()->json($reservations, 200, [JSON_HEX_QUOT, JSON_HEX_TAG])->header('Content-Type', 'application/json; charset=UTF8');
 
         } else {
-            $this->setError( $this->getErro(21));
+            $this->setError($this->getErro(21));
             return $this->response(false, 422);
         }
 
-        
+
     }
 
     public function destroy($id)
@@ -116,7 +119,7 @@ class ReservationController extends Controller
         $has_permission = $this->model->where([
             ['users_id', '=', Auth::user()->id],
             ['id', '=', $id]
-        ])->exists();        
+        ])->exists();
 
         if ($has_permission) {
             return parent::destroy($id);
