@@ -82,4 +82,32 @@ class ReservationTest extends TestCase
         
     }
 
+    public function testDeleteReservation()
+    {
+        $auth = $this->getAuth();
+        $reservation = factory(\App\Reservation::class)->create([
+            'users_id' => 1
+        ]);
+
+        $response = $this->withHeaders(['Authorization' => "{$auth->token_type} {$auth->access_token}"])
+            ->json('DELETE', '/api/reservations/' . $reservation->id);
+
+        $response->assertStatus(200)->assertJson($reservation->toArray());
+    }
+
+    public function testValidationDeleteReservation()
+    {
+        $auth = $this->getAuth();
+        $reservation = factory(\App\Reservation::class)->create([
+            'users_id' => 2
+        ]);
+
+        $response = $this->withHeaders(['Authorization' => "{$auth->token_type} {$auth->access_token}"])
+            ->json('DELETE', '/api/reservations/' . $reservation->id);
+
+        $response->assertStatus(403);
+
+        $reservation->delete();
+    }
+
 }
