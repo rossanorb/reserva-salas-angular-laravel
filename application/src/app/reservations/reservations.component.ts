@@ -4,6 +4,7 @@ import { Reservations } from '../models/reservations';
 import { ReservationService } from '../services/reservation.service';
 import { RoomService } from '../services/room.service';
 
+import { Room } from '../Interfaces/room';
 
 
 import * as Materialize from 'angular2-materialize';
@@ -27,9 +28,17 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     time_out: ''
   };
 
+/*
   public rooms: Object = {
     data: []
   };
+*/
+
+  public rooms: Room = {
+    name: '',
+    number: null
+  };
+
 
   materializeParams = [{
     format: 'dd/mm/yyyy',
@@ -118,9 +127,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     this.httpRoomService
       .resource('room')
       .list()
-      .subscribe((res) => {
-        this.rooms = res;
-      });
+      .subscribe( res => this.rooms = res );
   }
 
   private formatDate(date: String): string {
@@ -188,10 +195,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
       while (dtin <= date_out) {
 
-         console.log( `${dtin} <= ${date_out}`);
-
         if ( date_in == dtin) {
-            console.log( hours[i].date_out.substring(2, 4) );
             let dt: string;
 
             // quando dentro de um horario
@@ -221,7 +225,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     }
 
     hours = arr;
-    console.log(hours);
+    // console.log(hours);
 
     return hours;
   }
