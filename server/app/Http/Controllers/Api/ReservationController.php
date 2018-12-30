@@ -11,7 +11,7 @@ use Auth;
 class ReservationController extends Controller
 {
     protected $model;
-    protected $relationships = ['room'];
+    protected $relationships = ['room','user'];
     protected $validator;
 
     public function __construct(Reservation $model, ReservationValidator $validator)
@@ -85,9 +85,7 @@ class ReservationController extends Controller
         date_in BETWEEN  '$fromDate' AND '$toDate' OR date_out BETWEEN '$fromDate' AND '$toDate'        
         ";
 
-        \Log::info($sql);
-
-
+        
         $reservations = \DB::select($sql);
 
 

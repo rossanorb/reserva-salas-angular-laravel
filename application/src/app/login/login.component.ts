@@ -33,6 +33,7 @@ export class LoginComponent {
 
       this.httpService.client('oauth/token').insert(auth)
           .then((res) => {
+              Object.assign(res, {user: this.user.username});
               localStorage['tokens'] = JSON.stringify(res);
               this.httpService.setAccessToken(res.access_token);
               this.router.navigate(['/reservations']);
