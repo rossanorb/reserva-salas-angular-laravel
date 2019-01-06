@@ -140,7 +140,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
   }
 
   public clearTimeTable() {
-    /* hiding all icons delete */
+    /* hiding all icons delete
     const htmlElements: Array<Element> = Array.from( document.querySelectorAll('.delete') );
     htmlElements.forEach((el) => {
       if (el instanceof HTMLElement) {
@@ -149,6 +149,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
           throw new Error('element delete ' + el + ' in document');
       }
     });
+    */
 
     for (let id = 1; id <= 24; id++) {
         const parent: any = document.getElementById('hr-bar-' + id );
@@ -178,16 +179,16 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
   private getHours(param: any) {
     let hours = [];
 
-    for (let i = 0; i < param.length; i++ ) {
-      const date_in: number = param[i].date_in.split(' ')[1].replace(':', '').substring(0, 4);
-      const date_out: number = param[i].date_out.split(' ')[1].replace(':', '').substring(0, 4);
+    for (let iconDelete = 0; iconDelete < param.length; iconDelete++ ) {
+      const date_in: number = param[iconDelete].date_in.split(' ')[1].replace(':', '').substring(0, 4);
+      const date_out: number = param[iconDelete].date_out.split(' ')[1].replace(':', '').substring(0, 4);
       hours.push({
         date_in: date_in,
         date_out: date_out,
-        id: param[i].id,
-        owner: param[i].user.email,
-        label: param[i].date_in.split(' ')[1].substring(0, 5) + ' - ' + param[i].date_out.split(' ')[1].substring(0, 5),
-        room: param[i].room.name
+        id: param[iconDelete].id,
+        owner: param[iconDelete].user.email,
+        label: param[iconDelete].date_in.split(' ')[1].substring(0, 5) + ' - ' + param[iconDelete].date_out.split(' ')[1].substring(0, 5),
+        room: param[iconDelete].room.name
       });
     }
 
@@ -204,9 +205,9 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
   private adjustHoursToTableTime(hours: Array<any>): Array<any> {
     const arr = [];
-    for ( let i = 0; i < hours.length; i++ ) {
-      const date_out: number = hours[i].date_out.substring(0, 2);
-      const date_in: number =  hours[i].date_in.substring(0, 2);
+    for ( let iconDelete = 0; iconDelete < hours.length; iconDelete++ ) {
+      const date_out: number = hours[iconDelete].date_out.substring(0, 2);
+      const date_in: number =  hours[iconDelete].date_in.substring(0, 2);
 
       let dtin = date_in;
 
@@ -217,21 +218,21 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
             // quando dentro de um horario
             if (dtin == date_out ) {
-              const dto = hours[i].date_out.substring(2, 4);
+              const dto = hours[iconDelete].date_out.substring(2, 4);
               dt =  (Number(dtin) ) < 10 ?  '0' + (Number(dtin)  ) + dto : (Number(dtin) ) + dto;
             } else {
               dt =  (Number(dtin) + 1 ) < 10 ?  '0' + (Number(dtin) + 1 ) + '00' : (Number(dtin) + 1) + '00';
             }
 
-            arr.push({ date_in: hours[i].date_in, date_out: dt,
-              id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+            arr.push({ date_in: hours[iconDelete].date_in, date_out: dt,
+              id: hours[iconDelete].id, owner: hours[iconDelete].owner, label: hours[iconDelete].label, room: hours[iconDelete].room
             });
 
         } else if ( dtin == date_out ) {
-          if ( hours[i].date_out.substring(2, 4) != '00' ) {
+          if ( hours[iconDelete].date_out.substring(2, 4) != '00' ) {
             const dt = dtin < 10 ?  '0' + dtin  + '00' : dtin + '00';
-            arr.push({ date_in: dt, date_out:  hours[i].date_out,
-              id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+            arr.push({ date_in: dt, date_out:  hours[iconDelete].date_out,
+              id: hours[iconDelete].id, owner: hours[iconDelete].owner, label: hours[iconDelete].label, room: hours[iconDelete].room
             });
           }
 
@@ -239,7 +240,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
           const dti = dtin < 10 ?  '0' + dtin  + '00' : dtin + '00';
           const dto =  (Number(dtin) + 1) < 10 ?  '0' + (Number(dtin) + 1) + '00' : (Number(dtin) + 1) + '00';
           arr.push({ date_in: dti + '00', date_out: dto,
-           id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+           id: hours[iconDelete].id, owner: hours[iconDelete].owner, label: hours[iconDelete].label, room: hours[iconDelete].room
           });
         }
 
@@ -247,10 +248,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
       }
     }
 
-    hours = arr;
-    // console.log(hours);
-
-    return hours;
+    return arr;
   }
 
   private fillTable (hours: Array<any>): void {
@@ -284,25 +282,33 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
           margintop = '';
         }
 
-        div.setAttribute('style', 'font-size: 0.6em; text-align: center; padding-top: 2%;' +
+        div.setAttribute('style', 'font-size: 0.6em; text-align: center; padding-top: 1.1em;' +
         'background-color: ' + ( isOwner ? '#86f9ed' : '#ffa012') + '; position:relative;' +
         'height:30px; width:' + width + '; margin-left:' + marginleft + ';' + margintop );
 
         if (parseInt(width, 10) > 15) {
-          div.appendChild(document.createTextNode( element.room ));
+          div.appendChild(document.createTextNode( element.label ));
         }
 
         if (isOwner) {
-              const btnDelete = el.previousElementSibling.firstElementChild.lastElementChild;
-              btnDelete.style.visibility = 'visible';
-              btnDelete.addEventListener('click', () => {
-                this.delete(element.id);
-
-              });
+          const iconDelete: HTMLElement = this.createDeleteIcon();
+          iconDelete.addEventListener('click', () => {
+            this.delete(element.id);
+          });
+          div.appendChild(iconDelete);
         }
 
         el.appendChild(div);
     });
+  }
+
+  private createDeleteIcon(): HTMLElement {
+    const iconDelete = document.createElement('iconDelete');
+    iconDelete.appendChild(document.createTextNode('delete'));
+    iconDelete.setAttribute('class', 'material-icons delete');
+    iconDelete.setAttribute('style', 'font-size: 0.6rem;float: right; line-height: inherit; ' +
+                  'position: absolute; right: 1%; color: firebrick; cursor:pointer;');
+    return iconDelete;
   }
 
   private  getPosition(element: any, hours: Array<any>, id: number): number {
@@ -310,12 +316,12 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     let position = -1;
     let idx: number;
 
-    for (let i = 0; i < hours.length; i++) {
-      idx = hours[i].date_in.substring(0, 2);
+    for (let iconDelete = 0; iconDelete < hours.length; iconDelete++) {
+      idx = hours[iconDelete].date_in.substring(0, 2);
       if ( idx === id) {
         position++;
-        if ( hours[i].date_in === element.date_in) {
-          i = hours.length;
+        if ( hours[iconDelete].date_in === element.date_in) {
+          iconDelete = hours.length;
         }
       }
     }
@@ -343,7 +349,6 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
   private getWith(element: any): string {
     let date_out = element.date_out.substring(2, 4);
-    const date_in = element.date_in.substring(2, 4);
 
     if (element.date_out.substring(2, 4) === '00') {
       date_out = 60;
@@ -367,7 +372,8 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
               }
             })
             .catch((error: any) => {
-              console.log(error._body);
+              const result = JSON.parse( error._body );
+              Materialize.toast(result.description, 2000);
             });
         }
       });
