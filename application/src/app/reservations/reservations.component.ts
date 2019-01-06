@@ -286,7 +286,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
         div.setAttribute('style', 'font-size: 0.6em; text-align: center; padding-top: 2%;' +
         'background-color: ' + ( isOwner ? '#86f9ed' : '#ffa012') + '; position:relative;' +
-        'height:30px; width:' + 100 + '; margin-left:' + marginleft + ';' + margintop );
+        'height:30px; width:' + width + '; margin-left:' + marginleft + ';' + margintop );
 
         if (parseInt(width, 10) > 15) {
           div.appendChild(document.createTextNode( element.room ));
