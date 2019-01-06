@@ -140,17 +140,6 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
   }
 
   public clearTimeTable() {
-    /* hiding all icons delete
-    const htmlElements: Array<Element> = Array.from( document.querySelectorAll('.delete') );
-    htmlElements.forEach((el) => {
-      if (el instanceof HTMLElement) {
-        el.style.visibility = 'hidden';
-      } else {
-          throw new Error('element delete ' + el + ' in document');
-      }
-    });
-    */
-
     for (let id = 1; id <= 24; id++) {
         const parent: any = document.getElementById('hr-bar-' + id );
         let nodes: number = document.getElementById('hr-bar-' + id ).childElementCount;
@@ -284,10 +273,10 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
         div.setAttribute('style', 'font-size: 0.6em; text-align: center; padding-top: 1.1em;' +
         'background-color: ' + ( isOwner ? '#86f9ed' : '#ffa012') + '; position:relative;' +
-        'height:30px; width:' + width + '; margin-left:' + marginleft + ';' + margintop );
+        'height:30px; width:' + width + '%; margin-left:' + marginleft + '%;' + margintop );
 
-        if (parseInt(width, 10) > 15) {
-          div.appendChild(document.createTextNode( element.label ));
+        if (width > 15) {
+          div.appendChild(document.createTextNode( element.room ));
         }
 
         if (isOwner) {
@@ -329,7 +318,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     return position;
   }
 
-  private getMarginLeft(element: any, last: number, index: number): string {
+  private getMarginLeft(element: any, last: number, index: number): number {
     let marginleft: number;
 
     if (index === 0) {
@@ -344,10 +333,10 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
       marginleft = ( element.date_in.substring(2, 4) - last ) * 1.6666666;
     }
 
-    return ( marginleft + '%' );
+    return marginleft;
   }
 
-  private getWith(element: any): string {
+  private getWith(element: any): number {
     let date_out = element.date_out.substring(2, 4);
 
     if (element.date_out.substring(2, 4) === '00') {
@@ -356,7 +345,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
     const width = (date_out - element.date_in.substring(2, 4)) * 1.6666666;
 
-    return width + '%';
+    return width;
   }
 
   delete(id: number) {
