@@ -39,11 +39,26 @@
 
 .timetable div > div:nth-child(2){
   columns: #052b23;;
-  background: rgb(221, 253, 253);
+  background: rgb(249, 249, 249);
   height: 30px;
 }
 
+i.material-icons {
+  font-size: 1.1rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;  
+}
 
+i.material-icons:nth-child(1){
+  color: #1c8acf;
+  cursor: help;  
+}
+i.material-icons:nth-child(2){
+  color: #cc1212;
+  cursor: pointer;
+  visibility: hidden;  
+}
 
 @media only screen and (max-width : 600px) {
   .btn_salvar, .btn_voltar {width:100%;}

@@ -47,4 +47,14 @@ export class ReservationService {
     private handleError(error: any): Promise<any> {
         return Promise.reject(error.message || error);
     }
+
+    delete(id: number) {
+        return this.http.delete(this.url + '/' + id, this.options)
+        .toPromise()
+        .then((res) => {
+            return res.json || {};
+        })
+        .catch(this.handleError);
+
+    }
 }

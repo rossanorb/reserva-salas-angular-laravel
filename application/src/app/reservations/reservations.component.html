@@ -11,8 +11,7 @@
                 <div class="row">
                     <div class="col s12">
                             <form class="col s12 offset-s0 m8 offset-m2" #form="ngForm" (ngSubmit)='reservar()'>
-                                <div class="row">
-                                    <script>console.log(rooms);</script>
+                                <div class="row">                                   
                                     <div class="input-field col s6">                                        
                                         <select 
                                             [(ngModel)]="selectedRoom"
@@ -63,115 +62,256 @@
                                   <div class="col s12" class="timetable">
 
                                     <div id="hr-1" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-1" class="col s12" >01:00</div>
+                                        <div id="hr-viewer-1" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            01:00
+                                        </div>
                                         <div id="hr-bar-1" class="col s12" style="padding: 0%"></div>
                                     </div>
 
                                     <div id="hr-13" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-13" class="col s12" >13:00</div>
+                                        <div id="hr-viewer-13" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            13:00
+                                        </div>
                                         <div id="hr-bar-13" class="col s12"></div>
                                     </div>
 
                                     <div id="hr-2" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-2" class="col s12" >02:00</div>
+                                        <div id="hr-viewer-2" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            02:00
+                                        </div>
                                         <div id="hr-bar-2" class="col s12"></div>
                                     </div>                     
 
                                     <div id="hr-14" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-14" class="col s12" >14:00</div>
+                                            <div id="hr-viewer-14" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                14:00
+                                            </div>
                                             <div id="hr-bar-14" class="col s12"></div>
                                     </div>
                                     <div id="hr-3" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-3" class="col s12" >03:00</div>
+                                            <div id="hr-viewer-3" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                03:00
+                                            </div>
                                             <div id="hr-bar-3" class="col s12"></div>
                                     </div>
                                     <div id="hr-15" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-15" class="col s12" >15:00</div>
+                                            <div id="hr-viewer-15" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                15:00
+                                            </div>
                                             <div id="hr-bar-15" class="col s12"></div>
                                     </div>
                                     <div id="hr-4" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-4" class="col s12" >04:00</div>
+                                            <div id="hr-viewer-4" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                04:00
+                                            </div>
                                             <div id="hr-bar-4" class="col s12"></div>
                                     </div>
                                     <div id="hr-16" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-16" class="col s12" >16:00</div>
+                                            <div id="hr-viewer-16" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                16:00
+                                            </div>
                                             <div id="hr-bar-16" class="col s12"></div>
                                     </div>
                                     <div id="hr-5" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-5" class="col s12" >05:00</div>
+                                            <div id="hr-viewer-5" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                05:00
+                                            </div>
                                             <div id="hr-bar-5" class="col s12"></div>
                                     </div>
                                     <div id="hr-17" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-17" class="col s12" >17:00</div>
+                                            <div id="hr-viewer-17" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                17:00
+                                            </div>
                                             <div id="hr-bar-17" class="col s12"></div>
                                     </div>
                                     <div id="hr-6" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-6" class="col s12" >06:00</div>
+                                            <div id="hr-viewer-6" class="col s12">
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>
+                                                06:00
+                                            </div>
                                             <div id="hr-bar-6" class="col s12"></div>
                                     </div>
                                     <div id="hr-18" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-18" class="col s12" >18:00</div>
+                                            <div id="hr-viewer-18" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                18:00
+                                            </div>
                                             <div id="hr-bar-18" class="col s12"></div>
                                     </div>
                                     <div id="hr-7" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-7" class="col s12" >7:00</div>
+                                            <div id="hr-viewer-7" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                7:00
+                                            </div>
                                             <div id="hr-bar-7" class="col s12"></div>
                                     </div>
                                     <div id="hr-19" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-19" class="col s12" >19:00</div>
+                                            <div id="hr-viewer-19" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                19:00
+                                            </div>
                                             <div id="hr-bar-19" class="col s12"></div>
                                     </div>
                                     <div id="hr-8" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-8" class="col s12" >08:00</div>
+                                            <div id="hr-viewer-8" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                08:00
+                                            </div>
                                             <div id="hr-bar-8" class="col s12"></div>
                                     </div>
                                     <div id="hr-20" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-20" class="col s12" >20:00</div>
+                                            <div id="hr-viewer-20" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                20:00
+                                            </div>
                                             <div id="hr-bar-20" class="col s12"></div>
                                     </div>
                                     <div id="hr-9" class="col s12 m6 l6 hour">
-                                            <div id="hr-viewer-9" class="col s12" >09:00</div>
+                                            <div id="hr-viewer-9" class="col s12" >
+                                                <span class="badge">
+                                                    <i class="material-icons info">info_outline</i>
+                                                    <i class="material-icons delete" title="excluir">delete</i>
+                                                </span>                                                
+                                                09:00
+                                            </div>
                                             <div id="hr-bar-9" class="col s12"></div>
                                     </div>  
                                     <div id="hr-21" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-21" class="col s12" >21:00</div>
+                                        <div id="hr-viewer-21" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            21:00
+                                        </div>
                                         <div id="hr-bar-21" class="col s12"></div>
                                     </div>   
                                     <div id="hr-10" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-10" class="col s12" >10:00</div>
+                                        <div id="hr-viewer-10" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            10:00
+                                        </div>
                                         <div id="hr-bar-10" class="col s12"></div>
                                     </div>   
                                     <div id="hr-22" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-22" class="col s12" >22:00</div>
+                                        <div id="hr-viewer-22" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            22:00
+                                        </div>
                                         <div id="hr-bar-22" class="col s12"></div>
                                     </div>   
                                     <div id="hr-11" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-11" class="col s12" >11:00</div>
+                                        <div id="hr-viewer-11" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            11:00
+                                        </div>
                                         <div id="hr-bar-11" class="col s12"></div>
                                     </div>   
                                     <div id="hr-23" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-23" class="col s12" >23:00</div>
+                                        <div id="hr-viewer-23" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            23:00
+                                        </div>
                                         <div id="hr-bar-23" class="col s12"></div>
                                     </div>
 
                                     <div id="hr-12" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-12" class="col s12" >12:00</div>
+                                        <div id="hr-viewer-12" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            12:00
+                                        </div>
                                         <div id="hr-bar-12" class="col s12"></div>
                                     </div>   
                                     <div id="hr-24" class="col s12 m6 l6 hour">
-                                        <div id="hr-viewer-24" class="col s12" >00:00</div>
+                                        <div id="hr-viewer-24" class="col s12" >
+                                            <span class="badge">
+                                                <i class="material-icons info">info_outline</i>
+                                                <i class="material-icons delete" title="excluir">delete</i>
+                                            </span>                                            
+                                            00:00
+                                        </div>
                                         <div id="hr-bar-24" class="col s12"></div>
                                     </div>                                    
-                                    
                                   </div>
                                 </div>
-
-
-
                             </form>
                     </div>                    
                 </div>
             </div>
         </div>
     </section>
+    <app-dialog></app-dialog>
 </main>

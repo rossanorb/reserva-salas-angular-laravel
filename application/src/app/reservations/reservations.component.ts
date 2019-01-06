@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit, EventEmitter } from '@angular/core';
 import { Reservations } from '../models/reservations';
 import { ReservationService } from '../services/reservation.service';
 import { RoomService } from '../services/room.service';
-
+import { DialogService } from '../services/dialog.service';
 import { Room } from '../Interfaces/room';
 
 
@@ -63,6 +63,7 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
 
   constructor(
     private httpService: ReservationService,
+    private dialogService: DialogService,
     private httpRoomService: RoomService
   ) {
     const date = new Date();
@@ -139,6 +140,15 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
   }
 
   public clearTimeTable() {
+    /* hiding all icons delete */
+    const htmlElements: Array<Element> = Array.from( document.querySelectorAll('.delete') );
+    htmlElements.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.visibility = 'hidden';
+      } else {
+          throw new Error('element delete ' + el + ' in document');
+      }
+    });
 
     for (let id = 1; id <= 24; id++) {
         const parent: any = document.getElementById('hr-bar-' + id );
@@ -171,7 +181,14 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     for (let i = 0; i < param.length; i++ ) {
       const date_in: number = param[i].date_in.split(' ')[1].replace(':', '').substring(0, 4);
       const date_out: number = param[i].date_out.split(' ')[1].replace(':', '').substring(0, 4);
-      hours.push({ date_in: date_in, date_out: date_out });
+      hours.push({
+        date_in: date_in,
+        date_out: date_out,
+        id: param[i].id,
+        owner: param[i].user.email,
+        label: param[i].date_in.split(' ')[1].substring(0, 5) + ' - ' + param[i].date_out.split(' ')[1].substring(0, 5),
+        room: param[i].room.name
+      });
     }
 
     hours = this.adjustHoursToTableTime(hours);
@@ -206,18 +223,24 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
               dt =  (Number(dtin) + 1 ) < 10 ?  '0' + (Number(dtin) + 1 ) + '00' : (Number(dtin) + 1) + '00';
             }
 
-            arr.push({ date_in: hours[i].date_in, date_out: dt });
+            arr.push({ date_in: hours[i].date_in, date_out: dt,
+              id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+            });
 
         } else if ( dtin == date_out ) {
           if ( hours[i].date_out.substring(2, 4) != '00' ) {
             const dt = dtin < 10 ?  '0' + dtin  + '00' : dtin + '00';
-            arr.push({ date_in: dt, date_out:  hours[i].date_out });
+            arr.push({ date_in: dt, date_out:  hours[i].date_out,
+              id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+            });
           }
 
         } else {
           const dti = dtin < 10 ?  '0' + dtin  + '00' : dtin + '00';
           const dto =  (Number(dtin) + 1) < 10 ?  '0' + (Number(dtin) + 1) + '00' : (Number(dtin) + 1) + '00';
-          arr.push({ date_in: dti + '00', date_out: dto });
+          arr.push({ date_in: dti + '00', date_out: dto,
+           id: hours[i].id, owner: hours[i].owner, label: hours[i].label, room: hours[i].room
+          });
         }
 
         dtin++;
@@ -236,12 +259,15 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     let margintop: string;
     let controle = 0;
     let id: number;
+    const token = localStorage['tokens'] ? JSON.parse(localStorage['tokens']) : {};
 
 
     hours.forEach( (element, index) => {
         id = element.date_in.substring(0, 2);
+        const isOwner: boolean = token.user ===  element.owner ? true : false;
 
         el = document.getElementById('hr-bar-' + Number(id) );
+
         if (!el) { return false; }
         last = element.date_out.substring(2, 4);
 
@@ -259,15 +285,21 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
         }
 
         div.setAttribute('style', 'font-size: 0.6em; text-align: center; padding-top: 2%;' +
-        'background-color: #38f0f0; position:relative;' +
-        'height:30px; width:' + width + '; margin-left:' + marginleft + ';' + margintop );
+        'background-color: ' + ( isOwner ? '#86f9ed' : '#ffa012') + '; position:relative;' +
+        'height:30px; width:' + 100 + '; margin-left:' + marginleft + ';' + margintop );
 
-        const textnode = document.createTextNode(
-           element.date_in.substring(0, 2) + ':' + element.date_in.substring(2, 4)
-          + ' - '
-          + element.date_out.substring(0, 2) + ':' + element.date_out.substring(2, 4)
-        );
-        div.appendChild(textnode);
+        if (parseInt(width, 10) > 15) {
+          div.appendChild(document.createTextNode( element.room ));
+        }
+
+        if (isOwner) {
+              const btnDelete = el.previousElementSibling.firstElementChild.lastElementChild;
+              btnDelete.style.visibility = 'visible';
+              btnDelete.addEventListener('click', () => {
+                this.delete(element.id);
+
+              });
+        }
 
         el.appendChild(div);
     });
@@ -320,6 +352,25 @@ export class ReservationsComponent implements OnInit, AfterViewInit  {
     const width = (date_out - element.date_in.substring(2, 4)) * 1.6666666;
 
     return width + '%';
+  }
+
+  delete(id: number) {
+    this.dialogService.activate('Você tem certeza que deseja excluir esta reserva ?', 'Confirmação')
+      .then(confirmed => {
+        if (confirmed === true) {
+          this.httpService.resource('reservations').delete(id)
+            .then((res) => {
+              if (this.reservation.date_in) {
+                this.changeDate(this.reservation.date_in);
+              } else {
+                location.reload();
+              }
+            })
+            .catch((error: any) => {
+              console.log(error._body);
+            });
+        }
+      });
   }
 
 }
