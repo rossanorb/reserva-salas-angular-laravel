@@ -14,6 +14,7 @@ export class PaginateComponent implements OnChanges {
   @Input() pages: Array<number>;
   @Input() resource: string;
   @Output() onChangePage = new EventEmitter<boolean>();
+  limit: number = 10;
 
   constructor(private httpService: PaginateService) { }
   /*
@@ -32,13 +33,21 @@ export class PaginateComponent implements OnChanges {
     }
   }
 
-  changePage(page: number) {
+  changePage(page: number): void {
       this.activePage = page;
-      this.httpService.resource(this.resource).list({page: page})
+      this.httpService.resource(this.resource)
+        .list({
+          page: page,
+          limit: this.limit
+        })
         .then((res) => {
           this.onChangePage.emit(res);
         });
+  }
 
+  toLimit(limit: number): void {
+    this.limit = limit;
+    this.changePage(1);
   }
 
 }
