@@ -13,16 +13,23 @@ export class PaginateComponent implements OnChanges {
   @Input() totalPage: number;
   @Input() pages: Array<number>;
   @Input() resource: string;
+  @Input() order: string;
   @Output() onChangePage = new EventEmitter<boolean>();
   limit: number = 10;
 
-  constructor(private httpService: PaginateService) { }
+  constructor(private httpService: PaginateService) {}
   /*
   when the page load the properties are undefined
   ao carregar a aplicação as propriedades estarão undefined
   quando receber valor então será disparado o evento que irá gerar a paginação
   */
   ngOnChanges(changes: any): void {
+
+    if (changes.order) {
+      this.changePage(1);
+    }
+
+    console.log('paginate => '+ this.order);
 
     if (changes.totalPage) {
       this.pages = Array(this.totalPage)
@@ -38,7 +45,8 @@ export class PaginateComponent implements OnChanges {
       this.httpService.resource(this.resource)
         .list({
           page: page,
-          limit: this.limit
+          limit: this.limit,
+          order: this.order
         })
         .then((res) => {
           this.onChangePage.emit(res);

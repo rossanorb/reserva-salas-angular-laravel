@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 interface Options {
     limit?: number;
     page?: number;
+    order?: string;
 }
 
 interface RequestOptions {
@@ -36,8 +37,9 @@ export class PaginateService {
             options.page = 1;
         }
 
-        url += '?limit=' + options.limit;
-        url += '&page=' + options.page;
+        url += '?page=' + options.page;
+        url += '&limit=' + options.limit;
+        url += '&order=' + options.order ;
 
         return this.http.get(url, this.options)
             .toPromise()

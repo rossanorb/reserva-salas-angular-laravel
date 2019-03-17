@@ -13,6 +13,8 @@ export class UsersComponent implements OnInit {
     data: []
   };
 
+  order = 'name,asc';
+
   constructor(
     private httpService: UserService,
     private dialogService: DialogService,
@@ -34,6 +36,10 @@ export class UsersComponent implements OnInit {
 
   pageChanged(data: Object) {
     this.users = data;
+  }
+
+  setOrder(value: string) {
+    this.order = value;
   }
 
   delete(id: number) {

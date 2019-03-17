@@ -16,8 +16,8 @@
       <table class="striped">
         <thead>
           <tr>
-              <th>Nome<i class="small material-icons">arrow_drop_down</i></th>
-              <th>E-mail<i class="small material-icons">arrow_drop_down</i></th>
+              <th>Nome<i appOrderlist (getOrder)="setOrder($event)" order="name,desc"  class="small material-icons">arrow_drop_down</i></th>
+              <th>E-mail<i appOrderlist (getOrder)="setOrder($event)" order="email,desc" class="small material-icons">arrow_drop_down</i></th>
               <th width="100">Ações</th>
           </tr>
         </thead>
@@ -45,6 +45,7 @@
         [activePage]="users.current_page"
         [totalPage]="users.last_page"
         [resource]="'users'"
+        [order]="order"
         >
         </paginate>
       </div>
