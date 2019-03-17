@@ -14,8 +14,8 @@
         <table class="striped">
             <thead>
               <tr>
-                  <th>Nome</th>
-                  <th>Número Sala</th>
+                  <th>Nome<i appOrderlist (getOrder)="setOrder($event)" order="name,desc"  class="small material-icons">arrow_drop_down</i></th>
+                  <th>Número Sala<i appOrderlist (getOrder)="setOrder($event)" order="number,desc" class="small material-icons">arrow_drop_down</i></th>                  
                   <th width="100">Ações</th>
               </tr>
             </thead>
@@ -37,7 +37,14 @@
     <app-dialog></app-dialog>
     <div class="row center-align">
         <div class="col s12">
-          <paginate  (onChangePage)="pageChanged($event)"   [total]="rooms.total"  [activePage]="rooms.current_page"  [totalPage]="rooms.last_page" [resource]="'room'"></paginate>
+          <paginate
+            (onChangePage)="pageChanged($event)"
+            [total]="rooms.total"  [activePage]="rooms.current_page"  
+            [totalPage]="rooms.last_page" 
+            [resource]="'room'"
+            [order]="order"
+            >
+          </paginate>
         </div>        
     </div>
   </div>

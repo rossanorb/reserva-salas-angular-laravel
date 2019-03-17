@@ -16,6 +16,8 @@ export class RoomsComponent implements OnInit {
     number: null
   };
 
+  order = 'name,asc';
+
   constructor(
     private httpService: RoomService,
     private dialogService: DialogService,
@@ -34,6 +36,10 @@ export class RoomsComponent implements OnInit {
 
   pageChanged(data: Object) {
     this.rooms = <Room>data;
+  }
+
+  setOrder(value: string) {
+    this.order = value;
   }
 
   delete(id: number) {

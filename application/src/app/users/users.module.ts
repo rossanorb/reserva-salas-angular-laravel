@@ -14,7 +14,7 @@ import { UsersComponent } from './users.component';
 import { UsersNewComponent } from './users-new.component';
 import { UsersEditComponent } from './users-edit.component';
 
-import { OrderlistDirective } from '../directives/orderlist.directive';
+//import { OrderlistDirective } from './../directives/orderlist.directive';
 
 const appRoutes: Routes = [
     {path: 'users', component: UsersComponent},
@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     UsersComponent,
     UsersNewComponent,
     UsersEditComponent,
-    OrderlistDirective
+   // OrderlistDirective
   ],
   providers: [UserService, PaginateService, ToastService, DialogService]
 

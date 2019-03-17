@@ -29,8 +29,6 @@ export class PaginateComponent implements OnChanges {
       this.changePage(1);
     }
 
-    console.log('paginate => '+ this.order);
-
     if (changes.totalPage) {
       this.pages = Array(this.totalPage)
           .fill(this.totalPage)

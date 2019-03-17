@@ -6,6 +6,8 @@ import { PaginateComponent } from './paginate/paginate.component';
 import { ToastComponent } from './toast/toast.component';
 import { DialogComponent } from './dialog/dialog.component';
 
+import { OrderlistDirective } from './directives/orderlist.directive';
+
 
 @NgModule({
   imports: [
@@ -15,13 +17,15 @@ import { DialogComponent } from './dialog/dialog.component';
     HeaderComponent,
     PaginateComponent,
     ToastComponent,
-    DialogComponent
+    DialogComponent,
+    OrderlistDirective
   ],
   exports: [
     HeaderComponent,
     PaginateComponent,
     ToastComponent,
-    DialogComponent
+    DialogComponent,
+    OrderlistDirective
   ]
 })
 
